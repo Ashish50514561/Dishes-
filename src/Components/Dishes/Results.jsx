@@ -3,23 +3,46 @@ import { useNavigate } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import React, { useEffect, useState } from "react";
 import { Grid, Stack, Typography, Box, Button } from "@mui/material";
-import { asyncGetDishes } from "../../Redux/Actions/dishActions";
+import { asyncGetRatedDishes } from "../../Redux/Actions/resultsActions";
 
-export default function Dishes() {
+export default function Results() {
   const navigate = useNavigate();
+  const [rankedDishes, setRankedDishes] = useState([]);
   const [restrictSelection, setRestrictSelection] = useState(false);
   const userSelections = JSON.parse(localStorage.getItem("userSelections"));
 
   const dispatch = useDispatch();
-  const dishes = useSelector((state) => state.dishReducer);
+  const ratedDishes = useSelector((state) => state.ratedDishesReducer);
 
   const handleSelections = (value) => {
     setRestrictSelection(value);
   };
 
+  const sortDisheswithRanks = () => {
+    const sortedDishes =
+      ratedDishes.length > 0 &&
+      ratedDishes
+        .map((dish) => {
+          const points =
+            dish.ratings.length > 0
+              ? dish.ratings
+                  .map((user) => user.rating)
+                  .reduce((acc, ele) => acc + ele)
+              : 0;
+          return { ...dish, points: points };
+        })
+        .sort((a, b) => b.points - a.points);
+    setRankedDishes(sortedDishes);
+  };
+
   useEffect(() => {
-    dispatch(asyncGetDishes());
+    dispatch(asyncGetRatedDishes());
   }, []);
+
+  useEffect(() => {
+    // setRankedDishes(ratedDishes);
+    sortDisheswithRanks();
+  }, [ratedDishes]);
 
   return (
     <Grid
@@ -43,7 +66,7 @@ export default function Dishes() {
           }}
         >
           <Typography fontSize={{ xs: "20px", sm: "30px", md: "40px" }}>
-            Vote for your Favourite Dishes
+            See if your choice is everyone's Favourite
           </Typography>
         </Stack>
       </Grid>
@@ -59,26 +82,17 @@ export default function Dishes() {
           overflow: "auto",
         }}
       >
-        {dishes.map((dish) => {
+        {rankedDishes.map((dish) => {
+          console.log({ dish });
           return (
             <Dish
               {...dish}
               handleSelections={handleSelections}
               restrictSelection={restrictSelection}
+              result={true}
             />
           );
         })}
-        <Box sx={{ position: "absolute", bottom: 20, right: 50 }}>
-          <Button
-            onClick={() => navigate("/results")}
-            disabled={
-              userSelections && userSelections.length >= 3 ? false : true
-            }
-            variant="contained"
-          >
-            See Results
-          </Button>
-        </Box>
       </Grid>
     </Grid>
   );

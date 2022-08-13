@@ -9,3 +9,52 @@
   background-repeat: no-repeat;
   background-size: cover;
 }
+
+.btn_container {
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+
+.btn {
+  font-size: medium;
+  width: 100%;
+  height: 6vh;
+  color: white;
+  border-radius: 0.4rem;
+  background-color: #575757;
+}
+.btn:hover {
+  background-color: #aaaaaa;
+  color: black;
+}
+
+.remove_btn {
+  font-size: medium;
+  height: 6vh;
+  width: 100%;
+  color: aliceblue;
+  border-radius: 0.4rem;
+  background-color: #1976d2;
+}
+.remove_btn:hover {
+  background-color: #575757;
+  color: white;
+}
+.btn_small {
+  font-size: medium;
+  width: 28%;
+  height: 6vh;
+  color: white;
+  border-radius: 0.4rem;
+  background-color: #575757;
+}
+.btn_small:hover {
+  background-color: #1976d2;
+  color: white;
+}
+.stack {
+  justify-content: center;
+  align-items: center;
+}

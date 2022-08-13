@@ -1,7 +1,8 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router";
+import { useDispatch } from "react-redux";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
-import { useNavigate } from "react-router";
 import {
   Stack,
   TextField,
@@ -10,6 +11,7 @@ import {
   IconButton,
   Button,
 } from "@mui/material";
+import { asyncCurrentUser } from "../../Redux/Actions/userActions";
 
 export default function Login() {
   const [error, setError] = useState("");
@@ -17,6 +19,7 @@ export default function Login() {
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [users, setUsers] = useState([
     {
       id: 1,
@@ -66,9 +69,17 @@ export default function Login() {
       const validUser = users.find(
         (user) => user.username === userName && user.password === password
       );
-      validUser
-        ? navigate("/dishes")
-        : setError("Invalid Username or password");
+      if (validUser) {
+        navigate("/dishes");
+        localStorage.removeItem("userSelections");
+        const user = {
+          name: validUser.username,
+          id: validUser.id,
+        };
+        localStorage.setItem("user", JSON.stringify(user));
+      } else {
+        setError("Invalid Username or password");
+      }
     }
   };
 
