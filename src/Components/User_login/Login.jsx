@@ -93,6 +93,7 @@ export default function Login() {
           <Typography
             sx={{
               fontSize: { xs: "30px", sm: "33px", md: "40px", lg: "42px" },
+              color: "#aaaaaa",
             }}
           >
             Welcome ! Please Login

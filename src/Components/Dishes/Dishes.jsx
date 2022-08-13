@@ -1,10 +1,20 @@
-import React from "react";
-import { Grid, Stack, Typography } from "@mui/material";
 import Dish from "./Dish";
+import { useDispatch, useSelector } from "react-redux";
+import React, { useEffect } from "react";
+import { Grid, Stack, Typography } from "@mui/material";
+import { asyncGetDishes } from "../../Redux/Actions/dishActions";
 
 export default function Dishes() {
+  const dispatch = useDispatch();
+  const dishes = useSelector((state) => state.dishReducer);
+  console.log({ dishes });
+
+  useEffect(() => {
+    dispatch(asyncGetDishes());
+  }, []);
+
   return (
-    <Grid p={2} width="100vw" container xs={12}>
+    <Grid className="dishes" p={2} width="100vw" container xs={12}>
       <Grid
         borderRadius={1.5}
         boxShadow={1}
@@ -25,12 +35,13 @@ export default function Dishes() {
           mt: 2,
           maxHeight: "85vh",
           minHeight: "85vh",
+          overflow: "auto",
         }}
       >
-        <Dish />
-        <Dish />
-        <Dish />
-        <Dish />
+        {dishes.length > 0 &&
+          dishes.map((dish) => {
+            return <Dish {...dish} />;
+          })}
       </Grid>
     </Grid>
   );
