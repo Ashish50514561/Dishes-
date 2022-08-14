@@ -1,16 +1,17 @@
 import Dish from "./Dish";
-import { useDispatch, useSelector } from "react-redux";
 import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Grid, Stack, Typography, Box, Button } from "@mui/material";
 import { asyncGetRatedDishes } from "../../Redux/Actions/resultsActions";
 
 export default function Results() {
   const [rankedDishes, setRankedDishes] = useState("");
   const [restrictSelection, setRestrictSelection] = useState(false);
-  const userSelections = JSON.parse(localStorage.getItem("userSelections"));
 
   const dispatch = useDispatch();
   const ratedDishes = useSelector((state) => state.ratedDishesReducer);
+
+  const headingStyles = { xs: "20px", sm: "30px", md: "40px" };
 
   const handleSelections = (value) => {
     setRestrictSelection(value);
@@ -32,8 +33,6 @@ export default function Results() {
         .sort((a, b) => b.points - a.points);
     setRankedDishes(sortedDishes);
   };
-
-  const headingStyles = { xs: "20px", sm: "30px", md: "40px" };
 
   useEffect(() => {
     dispatch(asyncGetRatedDishes());
@@ -60,9 +59,9 @@ export default function Results() {
               <Dish
                 key={dish.id}
                 {...dish}
+                result={true}
                 handleSelections={handleSelections}
                 restrictSelection={restrictSelection}
-                result={true}
               />
             );
           })}

@@ -53,9 +53,8 @@ export const ratedDishesReducer = (state = rateDishesInitialState, action) => {
 
       if (ratedDishes) {
         const dishExists = ratedDishes.find((dish) => dish.id === id);
-        console.log({ dishExists });
+        // dish is already present
         if (dishExists) {
-          // dish is already present
           const alreadyRated = dishExists.ratings.find(
             (user) => user.userId === currentUser.id
           );

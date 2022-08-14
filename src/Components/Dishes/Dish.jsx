@@ -27,13 +27,14 @@ export default function Dish(props) {
     handleSelections,
     restrictSelection,
     result,
+    points,
   } = props;
   const [rate, setRate] = useState(false);
   const [rating, setRating] = useState(0);
   const dispatch = useDispatch();
 
   const currentUser = useSelector((state) => state.userReducer);
-  const Rated = useSelector((state) => state.ratedDishesReducer);
+  const RatedDishes = useSelector((state) => state.ratedDishesReducer);
   const userSelections = JSON.parse(localStorage.getItem("userSelections"));
 
   const handleRemoveRating = () => {
@@ -69,11 +70,11 @@ export default function Dish(props) {
 
   useEffect(() => {
     userSelections && userSelections.length >= 3 && handleSelections(true);
-  }, [Rated]);
+  }, [RatedDishes]);
 
   return (
     <Grid p={2} item xs={12} sm={6} md={4} lg={3}>
-      <Stack sx={{ position: "relative", borderRadius: 1.5, boxShadow: 1 }}>
+      <Stack id="card" boxShadow={1}>
         <Card sx={{ height: "60vh" }}>
           <CardMedia
             sx={{ height: 185 }}
@@ -85,15 +86,7 @@ export default function Dish(props) {
           <CardContent>
             <Stack className="stack">
               <Typography variant="h6" color="primary.main">
-                {dishName} {""}|{" "}
-                {result &&
-                  `Points- ${
-                    ratings.length > 0
-                      ? ratings
-                          .map((user) => user.rating)
-                          .reduce((acc, ele) => acc + ele)
-                      : 0
-                  }`}
+                {dishName} {""}| {result && `Points- ${points}`}
               </Typography>
               <Typography>{description.substring(0, 100)}...</Typography>
             </Stack>

@@ -32,6 +32,7 @@ export default function Dishes() {
           </Typography>
         </Stack>
       </Grid>
+
       <Grid className="dish_area" lg={12} item container>
         {dishes.map((dish) => {
           return (
