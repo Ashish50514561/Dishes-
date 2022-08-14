@@ -12,7 +12,6 @@ import {
   CardContent,
   Typography,
 } from "@mui/material";
-import {} from "@mui/material";
 import {
   asyncAddRating,
   asyncRemoveRating,
@@ -39,7 +38,6 @@ export default function Dish(props) {
 
   const handleRemoveRating = () => {
     handleSelections(false);
-    // setRate(false);
     dispatch(asyncRemoveRating(id));
   };
 
@@ -106,7 +104,7 @@ export default function Dish(props) {
               userSelections && userSelections.includes(id) ? (
                 <Box className="btn_container">
                   <button className="remove_btn" onClick={handleRemoveRating}>
-                    Remove this item
+                    Your Selection | Change?
                   </button>
                 </Box>
               ) : (
@@ -143,7 +141,7 @@ export default function Dish(props) {
             ) : userSelections && userSelections.includes(id) ? (
               <Box className="btn_container">
                 <button className="remove_btn" onClick={handleRemoveRating}>
-                  Remove this item
+                  Your Selection | Change?
                 </button>
               </Box>
             ) : (

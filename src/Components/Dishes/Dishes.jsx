@@ -62,6 +62,7 @@ export default function Dishes() {
         {dishes.map((dish) => {
           return (
             <Dish
+              key={dish.id}
               {...dish}
               handleSelections={handleSelections}
               restrictSelection={restrictSelection}

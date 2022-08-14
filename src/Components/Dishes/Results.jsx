@@ -1,13 +1,11 @@
 import Dish from "./Dish";
-import { useNavigate } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import React, { useEffect, useState } from "react";
 import { Grid, Stack, Typography, Box, Button } from "@mui/material";
 import { asyncGetRatedDishes } from "../../Redux/Actions/resultsActions";
 
 export default function Results() {
-  const navigate = useNavigate();
-  const [rankedDishes, setRankedDishes] = useState([]);
+  const [rankedDishes, setRankedDishes] = useState("");
   const [restrictSelection, setRestrictSelection] = useState(false);
   const userSelections = JSON.parse(localStorage.getItem("userSelections"));
 
@@ -40,7 +38,6 @@ export default function Results() {
   }, []);
 
   useEffect(() => {
-    // setRankedDishes(ratedDishes);
     sortDisheswithRanks();
   }, [ratedDishes]);
 
@@ -66,7 +63,7 @@ export default function Results() {
           }}
         >
           <Typography fontSize={{ xs: "20px", sm: "30px", md: "40px" }}>
-            See if your choice is everyone's Favourite
+            Results for the voting
           </Typography>
         </Stack>
       </Grid>
@@ -82,17 +79,18 @@ export default function Results() {
           overflow: "auto",
         }}
       >
-        {rankedDishes.map((dish) => {
-          console.log({ dish });
-          return (
-            <Dish
-              {...dish}
-              handleSelections={handleSelections}
-              restrictSelection={restrictSelection}
-              result={true}
-            />
-          );
-        })}
+        {rankedDishes &&
+          rankedDishes.map((dish) => {
+            return (
+              <Dish
+                key={dish.id}
+                {...dish}
+                handleSelections={handleSelections}
+                restrictSelection={restrictSelection}
+                result={true}
+              />
+            );
+          })}
       </Grid>
     </Grid>
   );

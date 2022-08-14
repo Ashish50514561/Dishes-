@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router";
-import { useDispatch } from "react-redux";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import {
@@ -11,15 +10,13 @@ import {
   IconButton,
   Button,
 } from "@mui/material";
-import { asyncCurrentUser } from "../../Redux/Actions/userActions";
 
 export default function Login() {
+  const navigate = useNavigate();
   const [error, setError] = useState("");
-  const [visible, setVisible] = useState(false);
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const [visible, setVisible] = useState(false);
   const [users, setUsers] = useState([
     {
       id: 1,
@@ -83,35 +80,51 @@ export default function Login() {
     }
   };
 
+  const responsiveFormStyles = {
+    width: { xs: "90vw", sm: "60vw", md: "50vw", lg: "40vw" },
+    height: "50vh",
+  };
+
+  const responsiveHeadingStyles = {
+    fontSize: { xs: "30px", sm: "33px", md: "40px", lg: "42px" },
+    color: "#aaaaaa",
+  };
+
+  const fieldStyles = {
+    pl: 2,
+    pr: 2,
+  };
+
+  const buttonStyles = {
+    height: "8vh",
+    color: "black",
+    bgcolor: "#ebecf0",
+    ":hover": {
+      bgcolor: "#aaaaaa",
+      color: "white",
+    },
+  };
+
+  const hidePasswordStyles = {
+    endAdornment: (
+      <InputAdornment position="end">
+        <IconButton onClick={handleVisibility}>
+          {visible ? <VisibilityOffIcon /> : <VisibilityIcon />}
+        </IconButton>
+      </InputAdornment>
+    ),
+  };
+
   return (
-    <Stack
-      className="login_page"
-      sx={{
-        height: "100vh",
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-    >
-      <Stack
-        spacing={3}
-        className="login_form"
-        sx={{
-          width: { xs: "90vw", sm: "60vw", md: "50vw", lg: "40vw" },
-          height: "50vh",
-        }}
-      >
+    <Stack className="stack login_page" height="100vh">
+      <Stack spacing={3} sx={responsiveFormStyles}>
         <Stack aria-label="login_heading" alignItems="center">
-          <Typography
-            sx={{
-              fontSize: { xs: "30px", sm: "33px", md: "40px", lg: "42px" },
-              color: "#aaaaaa",
-            }}
-          >
+          <Typography sx={responsiveHeadingStyles}>
             Welcome ! Please Login
           </Typography>
         </Stack>
 
-        <Stack aria-label="userName" pl={2} pr={2}>
+        <Stack aria-label="userName" sx={fieldStyles}>
           <TextField
             onChange={handleChange}
             name="userName"
@@ -119,21 +132,13 @@ export default function Login() {
           />
         </Stack>
 
-        <Stack aria-label="password" pl={2} pr={2}>
+        <Stack aria-label="password" sx={fieldStyles}>
           <TextField
             name="password"
             label="password "
             onChange={handleChange}
             type={visible ? "text" : "password"}
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="end">
-                  <IconButton onClick={handleVisibility}>
-                    {visible ? <VisibilityOffIcon /> : <VisibilityIcon />}
-                  </IconButton>
-                </InputAdornment>
-              ),
-            }}
+            InputProps={hidePasswordStyles}
           />
         </Stack>
 
@@ -143,20 +148,8 @@ export default function Login() {
           </Stack>
         )}
 
-        <Stack aria-label="login_btn" pl={2} pr={2}>
-          <Button
-            onClick={handleLogin}
-            variant="contained"
-            sx={{
-              height: "8vh",
-              color: "black",
-              bgcolor: "#ebecf0",
-              ":hover": {
-                bgcolor: "#aaaaaa",
-                color: "white",
-              },
-            }}
-          >
+        <Stack aria-label="login_btn" sx={fieldStyles}>
+          <Button onClick={handleLogin} variant="contained" sx={buttonStyles}>
             SIGN In
           </Button>
         </Stack>
