@@ -33,6 +33,8 @@ export default function Results() {
     setRankedDishes(sortedDishes);
   };
 
+  const headingStyles = { xs: "20px", sm: "30px", md: "40px" };
+
   useEffect(() => {
     dispatch(asyncGetRatedDishes());
   }, []);
@@ -42,43 +44,16 @@ export default function Results() {
   }, [ratedDishes]);
 
   return (
-    <Grid
-      position="relative"
-      className="dishes"
-      p={2}
-      width="100vw"
-      container
-      xs={12}
-      justifyContent="center"
-    >
+    <Grid className="dishes" container xs={12}>
       <Grid aria-label="page_heading" item lg={12}>
-        <Stack
-          sx={{
-            p: 1,
-            height: "7vh",
-            borderRadius: 1.5,
-            boxShadow: 1,
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          <Typography fontSize={{ xs: "20px", sm: "30px", md: "40px" }}>
+        <Stack boxShadow={1} className="main_heading">
+          <Typography fontSize={headingStyles}>
             Results for the voting
           </Typography>
         </Stack>
       </Grid>
-      <Grid
-        lg={12}
-        item
-        container
-        sx={{
-          p: 2,
-          mt: 2,
-          maxHeight: "85vh",
-          minHeight: "85vh",
-          overflow: "auto",
-        }}
-      >
+
+      <Grid lg={12} item container className="dish_area">
         {rankedDishes &&
           rankedDishes.map((dish) => {
             return (

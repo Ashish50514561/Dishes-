@@ -17,48 +17,22 @@ export default function Dishes() {
     setRestrictSelection(value);
   };
 
+  const headingStyles = { xs: "20px", sm: "30px", md: "40px" };
+
   useEffect(() => {
     dispatch(asyncGetDishes());
   }, []);
 
   return (
-    <Grid
-      position="relative"
-      className="dishes"
-      p={2}
-      width="100vw"
-      container
-      xs={12}
-      justifyContent="center"
-    >
+    <Grid container className="dishes" xs={12}>
       <Grid aria-label="page_heading" item lg={12}>
-        <Stack
-          sx={{
-            p: 1,
-            height: "7vh",
-            borderRadius: 1.5,
-            boxShadow: 1,
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          <Typography fontSize={{ xs: "20px", sm: "30px", md: "40px" }}>
+        <Stack boxShadow={1} className="main_heading">
+          <Typography fontSize={headingStyles}>
             Vote for your Favourite Dishes
           </Typography>
         </Stack>
       </Grid>
-      <Grid
-        lg={12}
-        item
-        container
-        sx={{
-          p: 2,
-          mt: 2,
-          maxHeight: "85vh",
-          minHeight: "85vh",
-          overflow: "auto",
-        }}
-      >
+      <Grid className="dish_area" lg={12} item container>
         {dishes.map((dish) => {
           return (
             <Dish
@@ -69,7 +43,8 @@ export default function Dishes() {
             />
           );
         })}
-        <Box sx={{ position: "absolute", bottom: 20, right: 50 }}>
+
+        <Box id="result_btn">
           <Button
             onClick={() => navigate("/results")}
             disabled={

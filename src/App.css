@@ -8,6 +8,27 @@
   background-image: url("https://wallpaperset.com/w/full/8/8/0/462749.jpg");
   background-repeat: no-repeat;
   background-size: cover;
+  position: relative;
+  padding: 20px;
+  width: 100vw;
+  justify-content: center;
+}
+
+.dish_area {
+  padding: 20px;
+  margin-top: 20px;
+  max-height: 85vh;
+  min-height: 85vh;
+  overflow: auto;
+}
+
+.main_heading {
+  padding: 10px;
+  height: 7vh;
+  border-radius: 15px;
+  box-shadow: 1px;
+  justify-content: center;
+  align-items: center;
 }
 
 .btn_container {
@@ -15,6 +36,12 @@
   position: absolute;
   bottom: 0;
   left: 0;
+}
+
+#result_btn {
+  position: absolute;
+  bottom: 20px;
+  right: 50px;
 }
 
 .btn {
