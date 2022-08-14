@@ -15,6 +15,7 @@ Below you will find some information on how to perform common tasks.<br>
 * You will see only voted dishes in results page according to their ranks with your selected dishes as separately highlighted which you can change anytime.
 
 ## Tools used
+* Local storage for persisting data
 * React-router for navigation
 * redux for state management
 * Material ui and custom css
