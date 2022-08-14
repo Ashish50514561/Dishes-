@@ -28,6 +28,7 @@ export default function Dish(props) {
     restrictSelection,
     result,
     points,
+    index,
   } = props;
   const [rate, setRate] = useState(false);
   const [rating, setRating] = useState(0);
@@ -85,8 +86,9 @@ export default function Dish(props) {
 
           <CardContent>
             <Stack className="stack">
-              <Typography variant="h6" color="primary.main">
-                {dishName} {""}| {result && `Points- ${points}`}
+              <Typography width="100%" fontSize="17px" color="primary.main">
+                {result && <span id="rank">Rank- {index}</span>} {dishName} {""}
+                | {result && `Points- ${points}`}
               </Typography>
               <Typography>{description.substring(0, 100)}...</Typography>
             </Stack>

@@ -54,12 +54,13 @@ export default function Results() {
 
       <Grid lg={12} item container className="dish_area">
         {rankedDishes &&
-          rankedDishes.map((dish) => {
+          rankedDishes.map((dish, i) => {
             return (
               <Dish
                 key={dish.id}
                 {...dish}
                 result={true}
+                index={i + 1}
                 handleSelections={handleSelections}
                 restrictSelection={restrictSelection}
               />

@@ -35,6 +35,15 @@
   position: relative;
   border-radius: 15px;
 }
+#rank {
+  padding: 2px;
+  background-color: #46b63c;
+  color: white;
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 4px;
+}
 
 .btn_container {
   width: 100%;
@@ -68,10 +77,10 @@
   width: 100%;
   color: aliceblue;
   border-radius: 0.4rem;
-  background-color: #219717;
+  background-color: #1976d2;
 }
 .remove_btn:hover {
-  background-color: #1976d2;
+  background-color: #219717;
   color: white;
 }
 .btn_small {
